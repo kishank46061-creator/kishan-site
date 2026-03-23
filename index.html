@@ -9,6 +9,7 @@ body {
     font-family: Arial;
     text-align: center;
     padding: 20px;
+    transition: 0.5s;
 }
 
 /* EXTRA BIG file input */
@@ -71,7 +72,7 @@ button {
 const upload = document.getElementById('upload');
 const a4 = document.getElementById('a4');
 
-let loadedImage = null; // store image safely
+let loadedImage = null;
 
 upload.addEventListener('change', function(e) {
     const file = e.target.files[0];
@@ -109,7 +110,7 @@ function printPage() {
     window.print();
 }
 
-// FIXED DOWNLOAD (NO BLACK)
+// DOWNLOAD HD
 function downloadHD() {
 
     if (!loadedImage) {
@@ -118,12 +119,11 @@ function downloadHD() {
     }
 
     const canvas = document.createElement("canvas");
-    canvas.width = 2480;   // A4 300 DPI
+    canvas.width = 2480;
     canvas.height = 3508;
 
     const ctx = canvas.getContext("2d");
 
-    // WHITE BACKGROUND (important fix)
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -153,6 +153,36 @@ function downloadHD() {
     link.href = canvas.toDataURL("image/jpeg", 1.0);
     link.click();
 }
+
+
+// ✅ BG COLOR CHANGE EVERY SECOND
+
+const colors = [
+    "#ff0000",
+    "#00ff00",
+    "#0000ff",
+    "#ffff00",
+    "#00ffff",
+    "#ff00ff",
+    "#ffffff",
+    "#000000",
+    "#ff8800",
+    "#00ff88"
+];
+
+let i = 0;
+
+setInterval(() => {
+
+    document.body.style.backgroundColor = colors[i];
+
+    i++;
+    if (i >= colors.length) {
+        i = 0;
+    }
+
+}, 1000);
+
 </script>
 
 </body>
